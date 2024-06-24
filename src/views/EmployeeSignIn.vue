@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '@/axiosConfig';
 import { store } from '@/store';
 
 export default {
@@ -46,16 +46,20 @@ export default {
     },
     async handleSubmit() {
       const pin = this.pin.join('');
+      console.log(`PIN entered: ${pin}`); // Debugging log
       try {
-        const response = await axios.post('/api/SiteSignIn/checkPin', { pinNumber: pin });
-        store.signIn = response.data.signIn;
+        const response = await axios.post('/SiteSignIn/checkPin', { pinNumber: pin });
+        console.log('API response:', response.data); // Debugging log
+
         if (response.data.signIn) {
+          store.signIn = response.data.signIn;
           this.$router.push({ name: 'EmployeeSignOut' });
         } else {
           store.employee = response.data.employee;
           this.$router.push({ name: 'EmployeeSignInConfirm' });
         }
       } catch (error) {
+        console.error('Error during API call:', error); // Debugging log
         if (error.response && error.response.data && error.response.data.message) {
           this.msgbox = `Error: ${error.response.data.message}`;
         } else {
