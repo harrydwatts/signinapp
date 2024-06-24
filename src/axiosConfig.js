@@ -1,8 +1,7 @@
-// src/axiosConfig.js
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: process.env.NODE_ENV === 'development' ? '/api' : process.env.VUE_APP_API_BASE_URL,
+  baseURL: process.env.VUE_APP_API_BASE_URL || '/api',
   headers: {
     'Content-Type': 'application/json',
   },
