@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+const baseURL = process.env.VUE_APP_API_BASE_URL || '/api';
+
+console.log(`Axios base URL: ${baseURL}`); // Log the base URL being used
+
 const instance = axios.create({
-  baseURL: process.env.VUE_APP_API_BASE_URL || '/api',
+  baseURL: baseURL,
   headers: {
     'Content-Type': 'application/json',
   },
